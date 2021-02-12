@@ -7,8 +7,9 @@ const cookieParser = require("cookie-parser");
 require("dotenv").config();
 
 //todo: import routes
-const authroutes = require("./routes/auth.route") 
-const prodRoute = require("./routes/product.route")
+const authRoutes = require("./routes/auth.route") 
+const userRoutes = require("./routes/user.route")
+const prodRoutes = require("./routes/product.route")
 //todo: init express app
 const app = express();
 
@@ -30,8 +31,9 @@ app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
 
 //todo: router middlewares
-app.use('/api', authroutes)
-app.use('/api', prodRoute)
+app.use('/api', authRoutes);
+app.use('/api', userRoutes);
+app.use('/api', prodRoutes);
 
 //todo: spin up server 
 const port = process.env.PORT

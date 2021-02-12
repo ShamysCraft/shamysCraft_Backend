@@ -5,17 +5,6 @@ var expressJwt = require("express-jwt")
 //import user model
 const User = require("../models/user");
 
-//getUserbyid
-exports.getUserById = (req,res,next,id) => {
-    User.findById(id)
-        .then(data => {
-            req.Userdata = data;
-            next();
-        })
-        .catch(err => res.status(400).json(err))
-        
-}
-
 //createUser
 exports.signup = (req,res) => {
     const errors = validationResult(req);
@@ -67,7 +56,8 @@ exports.signin = (req,res)=>{
             })
         }
         //create token
-        const token = jwt.sign({_id: user._id}, process.env.SECRET )
+        const secret = process.env.SECRET;
+        const token = jwt.sign({_id: user._id}, secret )
         //put token in cookie
         res.cookie("token", token, {expire: new Date() + 9999});
         //send response to front end
@@ -77,7 +67,40 @@ exports.signin = (req,res)=>{
 };
 
 //protected routes
+
+const secret = process.env.SECRET;
+exports.isSignedIn = expressJwt({
+    secret: secret,
+    algorithms: ['HS256'],
+    userProperty: 'auth'
+});
+
 //custom middleware
+
+//cheker - whether user is authenticated or not
+//if the user is logged in req.profile property is set up from front end
+//if req.auth is set up from issignedin middleware
+//sign in profile id is equal to auth id so the user can change stuf in his own account
+exports.isAuthenticated = (req,res, next)=>{
+    let checker = req.profile && req.auth && req.profile._id == req.auth._id ;
+    if(!checker){
+        return res.status(403).json({
+            err : "Access denied"
+        })
+    }
+    next();
+}
+
+
+exports.isAdmin = (req,res, next)=>{
+    if(req.profile.role === 0){
+        return res.status(403).json({
+            error: "Access invalid. Admin only"
+        })
+    }
+    next();
+}
+
 
 // module.exports. = {
 //     getUserById,
@@ -86,10 +109,3 @@ exports.signin = (req,res)=>{
 //     signout,
     
 // }
-
-
-exports.isSignedIn = expressJwt({
-    secret: 'secret',
-    algorithms: ['HS256'],
-    userProperty: 'auth'
-});

@@ -2,8 +2,7 @@ const router = require("express").Router();
 const { check } = require('express-validator');
 const { getUserById, signup, signin, signout, isSignedIn} = require("../controllers/auth.controller")
 
-//getuserId
-router.param("userId", getUserById);
+
 
 //user sign out 
 router.get("/signout",signout);
