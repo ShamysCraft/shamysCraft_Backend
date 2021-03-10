@@ -22,30 +22,39 @@ encry_password :{
     required: true,
     trim: true
 },
-
-address:[{
-    line1:{
-        type: String,
-    },
-    city:{
-        type: String,
-    },
-    district:{
-        type:String
-    },
-    province:{
-        type:String
-    },
-    postalcode:{
-        type:Number
-    }
-}],
+line1:{
+type: String,
+},
+city:{
+    type: String,
+},
+district:{
+    type:String
+},
+province:{
+    type:String
+},
+postalcode:{
+    type:Number
+},
 phonenumber:{
     type:Number
 },
-salt:{type: String},
-role:{type:Number},
+seller : {
+  type:Boolean,
+  default : 0,
 },
+salt:{type: String},
+role:{
+    type:Number,
+    default:0
+},
+purchases :{
+    type: Array,
+    default: []
+}
+},
+
 {
     timestamps:true
 })

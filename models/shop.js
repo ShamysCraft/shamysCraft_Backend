@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-const seller = require("./user")
+
+const {ObjectId} = mongoose.Schema;
 const schema = mongoose.Schema;
 const shopSchema = new schema({
     shopName : {
@@ -18,15 +19,15 @@ const shopSchema = new schema({
     },
 
     seller : {
-        type : Object,
-        ref : seller
+        type : ObjectId,
+        ref : "User"
     }
 },
 {
     timestamps : true
 })
 
-const shop = mongoose.model("shopScheme", shopSchema);
+const shop = mongoose.model("shopSchema", shopSchema);
 module.exports = shop;
 
 

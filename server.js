@@ -10,6 +10,9 @@ require("dotenv").config();
 const authRoutes = require("./routes/auth.route") 
 const userRoutes = require("./routes/user.route")
 const prodRoutes = require("./routes/product.route")
+const categoryRoutes = require("./routes/category.route")
+const oderRoutes = require("./routes/order.route")
+const shopRotes = require("./routes/shop.route")
 //todo: init express app
 const app = express();
 
@@ -33,7 +36,9 @@ app.use(cookieParser());
 //todo: router middlewares
 app.use('/api', authRoutes);
 app.use('/api', userRoutes);
-app.use('/api', prodRoutes);
+app.use('/api', categoryRoutes);
+app.use('/api', prodRoutes)
+// app.use('/api', prodRoutes);
 
 //todo: spin up server 
 const port = process.env.PORT

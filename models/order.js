@@ -15,7 +15,7 @@ const ProductcartSchema = new Schema({
         type : ObjectId,
         ref : "User"
     },
-    availability:String
+    availability:String,
 },{
     timestamps: true
 });
@@ -36,8 +36,9 @@ const OrderSchema = new Schema({
     },
     quantity : {type: Number},
     amount : {type: Number},
-    buyerconfirm : {type : Boolean},
-    sellercofirm : {type : Boolean},
+    
+    UserConfirm : {type : Boolean},
+    SellerConfirm: {type: Boolean},
     address: String
 
 },{

@@ -19,26 +19,19 @@ const productScheme = new mongoose.Schema({
         trim: true
     },
     
-    length : {
+    height: {
         type: Number,
         required: true
     },
-
-    dimention : {
-        height: {
-            type: Number,
-            required: true
-        },
-        width: {
-            type: Number,
-            required: true
-        },
-        length: {
-            type: Number,
-            required: true
-        }
-    }
-    ,
+    width: {
+        type: Number,
+        required: true
+    },
+    length: {
+        type: Number,
+        required: true
+    },
+    
     weigth: {
         type: Number,
         required: true
@@ -50,6 +43,11 @@ const productScheme = new mongoose.Schema({
     category: {
         type: ObjectId,
         ref: "Category",
+        required: true
+    },
+    shop:{
+        type:ObjectId,
+        ref: "Shop",
         required: true
     },
     sold: {
