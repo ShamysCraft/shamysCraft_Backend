@@ -14,8 +14,8 @@ const getCategoryById = (req,res,next,id) => {
     })
     
 }
-//create
 
+//create category
 const createCategory = (req,res)=>{
     const category = new Category(req.body)
     category.save((err,category)=>{
@@ -27,6 +27,7 @@ const createCategory = (req,res)=>{
         res.json(category)
     });
 };
+
 //Read all Category
 const getAllCategory = (req,res) => {
      Category.find().exec((err,categories)=>{
@@ -42,6 +43,7 @@ const getAllCategory = (req,res) => {
 const getCategory = (req,res) => {
     return res.json(req.category)
 }
+
 //update
 //from the middleware u can grab the category
  //data grabbed from front end

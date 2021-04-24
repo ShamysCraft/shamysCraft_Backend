@@ -40,10 +40,10 @@ postalcode:{
 phonenumber:{
     type:Number
 },
-seller : {
-  type:Boolean,
-  default : 0,
-},
+// seller : {
+//   type:Boolean,
+//   default : 0,
+// },
 salt:{type: String},
 role:{
     type:Number,

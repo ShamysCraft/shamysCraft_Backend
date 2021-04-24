@@ -2,6 +2,7 @@
 const { body, validationResult } = require('express-validator');
 var jwt = require('jsonwebtoken');
 var expressJwt = require("express-jwt")
+
 //import user model
 const User = require("../models/user");
 
@@ -69,6 +70,7 @@ exports.signin = (req,res)=>{
 //protected routes
 
 const secret = process.env.SECRET;
+
 exports.isSignedIn = expressJwt({
     secret: secret,
     algorithms: ['HS256'],
@@ -93,7 +95,7 @@ exports.isAuthenticated = (req,res, next)=>{
 
 
 exports.isAdmin = (req,res, next)=>{
-    if(req.profile.role === 0){
+    if(!req.profile.role === 45){
         return res.status(403).json({
             error: "Access invalid. Admin only"
         })
@@ -102,13 +104,23 @@ exports.isAdmin = (req,res, next)=>{
 }
 
 //is seller
-exports.isSeller = (req,res,next) => {
-    if(req.profile.role === 0){
+exports.isUser = (req,res,next) => {
+    if(req.profile.role === 1){
         return res.status(403).json({
-            error : "Access invalid. Seller Only"
+            error : "Access invalid. User Only"
         })
     }
     next();
 }
 
 
+
+// //is seller
+// exports.isSeller = (req,res,next) => {
+//     if(req.profile.role === 0){
+//         return res.status(403).json({
+//             error : "Access invalid. Seller Only"
+//         })
+//     }
+//     next();
+// }

@@ -11,8 +11,6 @@ const authRoutes = require("./routes/auth.route")
 const userRoutes = require("./routes/user.route")
 const prodRoutes = require("./routes/product.route")
 const categoryRoutes = require("./routes/category.route")
-const oderRoutes = require("./routes/order.route")
-const shopRotes = require("./routes/shop.route")
 //todo: init express app
 const app = express();
 

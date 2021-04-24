@@ -1,9 +1,7 @@
 const User = require("../models/user")
-const Shop = require("../models/shop")
+const Order = require("../models/order")
 
-const { body, validationResult } = require('express-validator');
-const {} = require("../controllers/auth.controller");
-
+// const Shop = require("../models/shop")
 
 //get userById
 const getUserById = (req,res,next, id) => {
@@ -63,42 +61,6 @@ const getUsers = (req,res)=>{
     })
 }
 
-//user become a seller
-const confirmSeller = (req,res) => {
-    User.findByIdAndUpdate(
-        {_id : req.profile._id},
-        {$set: req.body},
-        {new: true},
-        (err,user) => {
-            if(err){
-                return res.status(400).json({
-                    err: "Not Authorised to update the user"
-                }) 
-            }
-            user.salt = undefined;
-            user.ency_password = undefined,
-            res.json(user)
-        }
-    )
-    }
-    //user create shop
-    const createShop = (req,res)=>{
-    const {shopName,description} = req.body;
-    const id = req.profile._id;
-    const shop = new Shop({
-        shopName : shopName,
-        description : description,
-        seller : id
-    })
-    shop.save((err,shop)=>{
-        if(err){
-            res.status(400).json({
-                err, error:"Shop is not created"
-            })
-        }
-        res.json(shop);
-    })
-    }
     
 //pulling information from order model
 //fetching orders based on a user who pushed 
@@ -153,8 +115,44 @@ module.exports = {
     getUsers,
     updateUser,
     deleteuser,
-    createShop, 
     userPurchaseList,
     pushOrderInPurchaseList,
-    confirmSeller
 }
+
+
+// //user become a seller
+// const confirmSeller = (req,res) => {
+//     User.findByIdAndUpdate(
+//         {_id : req.profile._id},
+//         {$set: req.body},
+//         {new: true},
+//         (err,user) => {
+//             if(err){
+//                 return res.status(400).json({
+//                     err: "Not Authorised to update the user"
+//                 }) 
+//             }
+//             user.salt = undefined;
+//             user.ency_password = undefined,
+//             res.json(user)
+//         }
+//     )
+//     }
+    //user create shop
+    // const createShop = (req,res)=>{
+    // const {shopName,description} = req.body;
+    // const id = req.profile._id;
+    // const shop = new Shop({
+    //     shopName : shopName,
+    //     description : description,
+    //     seller : id
+    // })
+    // shop.save((err,shop)=>{
+    //     if(err){
+    //         res.status(400).json({
+    //             err, error:"Shop is not created"
+    //         })
+    //     }
+    //     res.json(shop);
+    // })
+    // }

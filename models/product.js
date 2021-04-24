@@ -38,16 +38,11 @@ const productScheme = new mongoose.Schema({
     },
     quantity: {
         type: Number,
-        required: true
+        // required: true
     },
     category: {
         type: ObjectId,
         ref: "Category",
-        required: true
-    },
-    shop:{
-        type:ObjectId,
-        ref: "Shop",
         required: true
     },
     sold: {

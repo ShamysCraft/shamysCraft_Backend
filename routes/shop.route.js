@@ -1,28 +1,28 @@
-const router = require("express").Router();
+// const router = require("express").Router();
 
-const { isAuthenticated, isSignedIn, isSeller} = require("../controllers/auth.controller");
-const {getShopById,confirmOrder} = require("../controllers/shop.controller");
-const {getUserById} = require("../controllers/user.controller")
-
-
-// const userId; 
-router.param("userId", getUserById);
-//get ShopById
-router.param("shopId",getShopById);
+// const { isAuthenticated, isSignedIn, isSeller} = require("../controllers/auth.controller");
+// const {getShopById,confirmOrder} = require("../controllers/shop.controller");
+// const {getUserById} = require("../controllers/user.controller")
 
 
-//getShopbyId
-router.get("/shop/:userId")
+// // const userId; 
+// router.param("userId", getUserById);
+// //get ShopById
+// router.param("shopId",getShopById);
 
 
-//getPendingOrder
-//getConfirmOrder
-
-//confirmOrder
-router.put("/shop/:shopId/update",isSignedIn, isAuthenticated, isSeller, confirmOrder)
+// //getShopbyId
+// router.get("/shop/:userId")
 
 
+// //getPendingOrder
+// //getConfirmOrder
+
+// //confirmOrder
+// router.put("/shop/:shopId/update",isSignedIn, isAuthenticated, isSeller, confirmOrder)
 
 
 
-module.exports = router;
+
+
+// module.exports = router;

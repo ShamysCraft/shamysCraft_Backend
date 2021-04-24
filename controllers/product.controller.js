@@ -1,6 +1,6 @@
 const Product = require("../models/product");
 const formidable = require("formidable")
-const lodash = require("lodash")
+const _ = require("lodash")
 const fs = require("fs")
 
 //getProductById
@@ -45,8 +45,10 @@ const createProduct = (req,res) => {
                 err : "Please include all fields"
             })
         }
+        
         //handle file
         let product = new Product(fields);
+        //handle file here
         if(file.photo){
             if(file.photo.size> 3000000){
                 return res.status(400).json({
@@ -82,17 +84,17 @@ const getProducts = (req,res) => {
             
 }
 
-const getProductByShopId = (req,res)=>{
-    // const shopId;
-    Product.find({shopId : shopId})
-        .then()
-        .catch()
-}
+// const getProductByShopId = (req,res)=>{
+//     // const shopId;
+//     Product.find({shopId : shopId})
+//         .then()
+//         .catch()
+// }
 
-//deleteProduct
-const deleteProduct = (req,res)=>{
-    Product.findByIdAndDelete(id).exec(err,product)
-}
+// //deleteProduct
+// const deleteProduct = (req,res)=>{
+//     Product.findByIdAndDelete(id).exec(err,product)
+// }
 
 const availability= (req,res)=>{
     //displayProductavailability
