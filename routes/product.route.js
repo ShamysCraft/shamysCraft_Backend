@@ -3,7 +3,8 @@ const router = require("express").Router();
 const {
     getProductById,
     createProduct , 
-    getProducts} = require("../controllers/product.controller")
+    getProducts,
+    deleteProduct} = require("../controllers/product.controller")
 
 const {isSignedIn,isAuthenticated,isAdmin} = require("../controllers/auth.controller")
 const {getCategoryById} = require("../controllers/category.controller")
@@ -29,5 +30,9 @@ router.post("/product/create/:userId",
 
 //getProducts
 router.get("/product", getProducts);
+
+//deleteProduct
+router.delete("/product/delete/:productId/:userId",isSignedIn,isAuthenticated,isAdmin, deleteProduct);
+
 
 module.exports = router;

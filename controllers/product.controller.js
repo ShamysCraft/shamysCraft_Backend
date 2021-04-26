@@ -7,16 +7,16 @@ const fs = require("fs")
 const getProductById = (req, res, next, id) => {
     Product.findById(id)
         .populate("category")
-        .then(data => {
-            req.Productdata = data
-        })
-        .catch(error => res.status(400).json({error: 'Product not found'}))
-    ;
+        .exec((err,data)=>{
+            if(err || !data){
+                return res.status(400).json({err: 'product not found'})
+            }
+            req.Productdata = data;
+            next();
+        });
+        
 
 }
-
-
-
 
 const createProduct = (req, res) => {
     let form = new formidable.IncomingForm();
@@ -36,7 +36,7 @@ const createProduct = (req, res) => {
           error: "Please include all fields"
         });
       }
-  
+
       let product = new Product(fields);
   
       //handle file here
@@ -77,22 +77,19 @@ const getProducts = (req, res) => {
         Product.find()
                 .then(data=> res.json(data))
                 .catch(error => res.status(400).json({ error: "cannot retrieve products" }) )
-    
-    
-
 }
 
-// const getProductByShopId = (req,res)=>{
-//     // const shopId;
-//     Product.find({shopId : shopId})
-//         .then()
-//         .catch()
-// }
-
-// //deleteProduct
-// const deleteProduct = (req,res)=>{
-//     Product.findByIdAndDelete(id).exec(err,product)
-// }
+const deleteProduct = (req,res) =>{
+    const id = req.Productdata._id;
+    try {
+        Product.findByIdAndDelete(id)
+            .then(res.status(200).json({message: "Product deleted successfully"}))
+            .catch(err => res.status(400).json({err: `product with ${id} cannot be deleted`}))
+    } catch (error) {
+        error => res.status(400).json({ error: "cannot process the request" }) 
+    }
+    
+}
 
 const availability = (req, res) => {
     //displayProductavailability
@@ -107,4 +104,4 @@ const availability = (req, res) => {
     })
 }
 
-module.exports = { getProductById, createProduct, getProducts }
+module.exports = { getProductById, createProduct, getProducts , deleteProduct }
