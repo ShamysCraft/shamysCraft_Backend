@@ -71,27 +71,6 @@ const createProduct = (req, res) => {
 };
 
 
-// getProducts - testing purpose
-const getProducts = (req, res) => {
-
-  Product.find()
-    .then(data => res.json(data))
-    .catch(error => res.status(400).json({ error: "cannot retrieve products" }))
-}
-
-const deleteProduct = (req, res) => {
-  const id = req.Productdata._id;
-  try {
-    Product.findByIdAndDelete(id)
-      .then(res.status(200).json({ message: "Product deleted successfully" }))
-      .catch(err => res.status(400).json({ err: `product with ${id} cannot be deleted` }))
-  } catch (error) {
-    error => res.status(400).json({ error: "cannot process the request" })
-  }
-
-}
-
-
 const getProduct = (req, res) => {
 
   req.Productdata.photo = undefined;
@@ -108,6 +87,70 @@ const photo = (req, res, next) => {
   next();
 }
 
+//deleteProduct
+const deleteProduct = (req, res) => {
+  let product = req.Productdata;
+
+  product.remove((err,deletedProduct)=>{
+    if(err){
+      return res.status(400).json({err: 'Product deletion failed'})
+    }
+    res.json({
+      message: "Product Deleted Successfully",
+      deletedProduct
+    })
+  })
+
+}
+
+//update product
+//adding a product ui == same fields for updation of product
+
+const updateProduct = (req,res)=>{
+  let form = new formidable.IncomingForm();
+  form.keepExtensions = true;
+
+  form.parse(req, (err, fields, file) => {
+    if (err) {
+      return res.status(400).json({
+        error: "problem with image"
+      });
+    }
+    //update code
+    let product = req.Productdata;
+    product = _.extend(product, fields)
+
+    //handle file here
+    if (file.photo) {
+      if (file.photo.size > 3000000) {
+        return res.status(400).json({
+          error: "File size too big!"
+        });
+      }
+      try {
+        product.photo.data = fs.readFileSync(file.photo.path);
+
+        product.photo.contentType = file.photo.type;
+      } catch (error) {
+        return res.status(400).json({
+          error: "Cannot set property 'data' of undefined"
+        })
+      }
+    }
+    // console.log(product);
+
+    //save to the DB
+    product.save((err, product) => {
+      if (err) {
+        res.status(400).json({
+          error: "updating of product in DB failed"
+        });
+      }
+      res.json(product);
+    });
+  });
+}
+
 const availability = (req, res) => {
   //displayProductavailability
   Product.findById(id).exec((err, product) => {
@@ -121,4 +164,13 @@ const availability = (req, res) => {
   })
 }
 
-module.exports = { getProductById, createProduct, getProducts, getProduct, deleteProduct ,photo }
+
+// getProducts - testing purpose
+const getProducts = (req, res) => {
+
+  Product.find()
+    .then(data => res.json(data))
+    .catch(error => res.status(400).json({ error: "cannot retrieve products" }))
+}
+
+module.exports = { getProductById, createProduct, getProducts, getProduct, deleteProduct ,photo, updateProduct }
