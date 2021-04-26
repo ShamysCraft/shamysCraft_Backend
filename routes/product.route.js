@@ -4,7 +4,9 @@ const {
     getProductById,
     createProduct , 
     getProducts,
-    deleteProduct} = require("../controllers/product.controller")
+    getProduct,
+    deleteProduct,
+    photo} = require("../controllers/product.controller")
 
 const {isSignedIn,isAuthenticated,isAdmin} = require("../controllers/auth.controller")
 const {getCategoryById} = require("../controllers/category.controller")
@@ -18,9 +20,9 @@ router.param("productId", getProductById);
 //param category is
 router.param("categoryId", getCategoryById)
 
-// //getProductbyid
-router.get("/product")
-
+//getProductbyId
+router.get("/product/:productId",getProduct)
+router.get("/product/photo/:productId", photo)
 //createProduct
 router.post("/product/create/:userId",
     isSignedIn,
@@ -30,6 +32,8 @@ router.post("/product/create/:userId",
 
 //getProducts
 router.get("/product", getProducts);
+
+
 
 //deleteProduct
 router.delete("/product/delete/:productId/:userId",isSignedIn,isAuthenticated,isAdmin, deleteProduct);

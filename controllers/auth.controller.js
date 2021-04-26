@@ -117,15 +117,17 @@ exports.isUser = (req,res,next) => {
 
 exports.isUserExist = (req,res,next) =>{
     const email = req.body.email;
-    User.findOne({email:email}).then(user=>{
-        if(user){
-            res.status(403).json({msg: 'Email already exists'});
-            // res.render('register',{errors})
-        }
-        else{
-            next()
-        }
-    })
+   User.findOne({email})
+        .then(user=>{
+            if(user){
+                return res.status(403).json({
+                    error : `User exists`
+                })
+            }
+            else{
+                next();
+            }
+        })
 }
 
 
