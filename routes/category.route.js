@@ -6,7 +6,8 @@ const {
     getCategory, 
     getAllCategory, 
     updateCategory, 
-    deleteCategory} = require("../controllers/category.controller")
+    deleteCategory,
+    isCategoryExist} = require("../controllers/category.controller")
 
 const {isSignedIn, isAdmin, isAuthenticated } = require("../controllers/auth.controller")
 const {getUserById} = require("../controllers/user.controller");
@@ -20,6 +21,7 @@ router.post("/category/create/:userId",
     isSignedIn,
     isAuthenticated,
     isAdmin,
+    isCategoryExist,
     createCategory)
 //read category
 router.get("/category/:categoryId",getCategory)

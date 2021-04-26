@@ -76,11 +76,29 @@ const deleteCategory = (req,res) => {
     })
 }
 
+// avoid duplicate category names being produced
+// isCategoryExist middleware
+const isCategoryExist = (req,res,next) => {
+    const catName = req.body.Name;
+    Category.findOne({Name : catName}).then(category=>{
+        if(category){
+            res.status(403).json({msg: 'Category already exists'});
+
+        }
+        else{
+            next()
+        }
+    })
+    
+    
+}
+
 module.exports = {
     getCategoryById,
     createCategory,
     getAllCategory,
     getCategory,
     updateCategory,
-    deleteCategory
+    deleteCategory,
+    isCategoryExist
 }

@@ -14,6 +14,7 @@ lname: {
 },
 email: {
     type: String,
+    unique: true,
     required: true,
     trim: true
 },
@@ -85,7 +86,9 @@ userSchema.methods = {
         } catch (error) {
             return ""
         }
-    }
+    },
+
+    
 }
 
 const user = mongoose.model("User", userSchema);
