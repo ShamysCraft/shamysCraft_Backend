@@ -67,6 +67,7 @@ exports.signin = (req,res)=>{
     });
 };
 
+
 //protected routes
 
 const secret = process.env.SECRET;
@@ -111,6 +112,16 @@ exports.isUser = (req,res,next) => {
         })
     }
     next();
+}
+
+
+exports.isUserExist = (req,res,next) =>{
+    const email = req.body.email;
+    if(User.findOne({email})){
+        return res.status(403).json({
+            error: `user exists with this email : ${email}`
+        })
+    }
 }
 
 

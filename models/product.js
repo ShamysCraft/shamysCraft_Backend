@@ -32,7 +32,7 @@ const productScheme = new mongoose.Schema({
         required: true
     },
     
-    weigth: {
+    weight: {
         type: Number,
         required: true
     },
@@ -50,7 +50,7 @@ const productScheme = new mongoose.Schema({
         default: 0
     },
     photo:{
-        type: Buffer,
+        data: Buffer,
         contentType: String
     }
    

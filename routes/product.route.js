@@ -21,7 +21,7 @@ router.param("categoryId", getCategoryById)
 router.get("/product")
 
 //createProduct
-router.post("/product/creat/:userId/:shopId",
+router.post("/product/create/:userId",
     isSignedIn,
     isAuthenticated,
     isAdmin,

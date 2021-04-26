@@ -7,7 +7,7 @@ const {
     updateUser, 
     userPurchaseList
 } = require("../controllers/user.controller")
-const {isSignedIn, isAuthenticated,isAdmin } = require("../controllers/auth.controller");
+const {isSignedIn, isAuthenticated,isAdmin  } = require("../controllers/auth.controller");
 
 //getUserById
 //if routes contain :userid this param will get the value and send to the controller
