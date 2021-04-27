@@ -1,7 +1,8 @@
 const Product = require("../models/product");
 const formidable = require("formidable")
 const _ = require("lodash")
-const fs = require("fs")
+const fs = require("fs");
+const { sortBy } = require("lodash");
 
 //getProductById
 const getProductById = (req, res, next, id) => {
@@ -164,6 +165,51 @@ const availability = (req, res) => {
   })
 }
 
+//product listing
+const getAllProducts = (req,res)=>{
+  let limit = req.query.limit ? parseInt(req.query.limit) : 8;
+  let sortBy = req.query.sortBy ? req.query.sortBy : "_id"
+  Product.find()
+    .select("-photo")
+    .populate("category")
+    .limit(limit)
+    .sort([[sortBy, "asc"]])
+    .then(data => res.json(data))
+    .catch(error => res.status(400).json({ message: "cannot retrieve products" }))
+
+}
+
+const getAllUniqueCategories = (req,res)=>{
+  Product.distinct("Category",{}, (err,category)=>{
+    if(err){
+      return res.status(400).json({
+        error: "Categories are not found"
+      })
+    }
+    res.json(category)
+  })
+}
+
+//update quantity and sold
+//middleware
+const updateStock = (req,res,next)=>{
+  let myOperations = req.body.order.products.map(prod => {
+    return {
+      updateOne: {
+        filter : {_id: prod._id},
+        update: {$inc: {quantity: -prod.count, sold: +prod.count}}
+      }
+    } 
+  })
+  Product.bulkWrite(myOperations, {}, (err, products)=>{
+    if(err){
+      return res.status(400).json({
+        error: "bulk operation failed"
+      })
+    }
+
+  })
+}
 
 // getProducts - testing purpose
 const getProducts = (req, res) => {
@@ -173,4 +219,6 @@ const getProducts = (req, res) => {
     .catch(error => res.status(400).json({ error: "cannot retrieve products" }))
 }
 
-module.exports = { getProductById, createProduct, getProducts, getProduct, deleteProduct ,photo, updateProduct }
+
+
+module.exports = { getProductById, createProduct, getProducts, getProduct, deleteProduct ,photo, updateProduct, getAllProducts, getAllUniqueCategories }
