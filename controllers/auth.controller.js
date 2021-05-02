@@ -121,7 +121,7 @@ exports.isUserExist = (req,res,next) =>{
         .then(user=>{
             if(user){
                 return res.status(403).json({
-                    error : `User exists`
+                    error : `User with this e-mail already exists!`
                 })
             }
             else{

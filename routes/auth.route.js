@@ -10,18 +10,20 @@ router.get("/signout",signout);
 //usersignin
 router.post("/signin", 
 [
-    check("email", "email is required").isEmail(),
-    check("password", "invalid password").isLength({min:1})
+    check("email", "Please enter a valid e-mail!").isEmail(),
+    check("password", "invalid password").not().isEmpty()
 ]
 ,signin);
 
 //create user
 router.post("/signup",
 [
-check('fname',"first name is required").not().isEmpty(),
-check('lname',"lastn name is required").not().isEmpty(),
-check('email', "email should be email").isEmail(),
-check('password',"Password is required").not().isEmpty()
+check('fname',"Enter the first name!").not().isEmpty(),
+check('lname',"Enter the last name!").not().isEmpty(),
+check('email', "Please enter a valid e-mail!").isEmail(),
+check('password',"Password is required!").not().isEmpty(),
+check('password',"Password: Use 8 or more characters").isLength({min:8}),
+
 ]
 ,isUserExist, signup)
 

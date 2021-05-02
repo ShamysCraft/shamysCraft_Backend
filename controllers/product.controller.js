@@ -221,4 +221,4 @@ const getProducts = (req, res) => {
 
 
 
-module.exports = { getProductById, createProduct, getProducts, getProduct, deleteProduct ,photo, updateProduct, getAllProducts, getAllUniqueCategories }
+module.exports = { getProductById, createProduct, getProducts, getProduct, deleteProduct ,photo, updateProduct, getAllProducts, getAllUniqueCategories, updateStock }

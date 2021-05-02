@@ -7,10 +7,11 @@ const cookieParser = require("cookie-parser");
 require("dotenv").config();
 
 //todo: import routes
-const authRoutes = require("./routes/auth.route") 
+const authRoutes = require("./routes/auth.route")
 const userRoutes = require("./routes/user.route")
 const prodRoutes = require("./routes/product.route")
 const categoryRoutes = require("./routes/category.route")
+const orderRoutes = require("./routes/order.route")
 //todo: init express app
 const app = express();
 
@@ -22,13 +23,13 @@ mongoose.connect(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
-.then(console.log("DB connection successful"))
-.catch(err => console.log(`DB Connection failed: ${err}`))
+    .then(console.log("DB connection successful"))
+    .catch(err => console.log(`DB Connection failed: ${err}`))
 
 //todo: config middlewares
 app.use(express.json());
 app.use(cors());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 //todo: router middlewares
@@ -36,11 +37,12 @@ app.use('/api', authRoutes);
 app.use('/api', userRoutes);
 app.use('/api', categoryRoutes);
 app.use('/api', prodRoutes)
+app.use('/api', orderRoutes)
 // app.use('/api', prodRoutes);
 
 //todo: spin up server 
 const port = process.env.PORT
-app.listen(port,()=>{
-    if(!port) return console.log("Couild not connect to server"); //guardian clause
+app.listen(port, () => {
+    if (!port) return console.log("Couild not connect to server"); //guardian clause
     console.log(`server is running on http://localhost:${5000}`)
 })

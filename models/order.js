@@ -20,29 +20,29 @@ const ProductcartSchema = new Schema({
     timestamps: true
 });
 
-module.exports = model("ProductCart", ProductcartSchema);
+const ProductCart = model("ProductCart", ProductcartSchema);
 
 
 const OrderSchema = new Schema({
     products : [ProductcartSchema],
     transaction_id: {},
-    shop : {
-        type : ObjectId,
-        ref : "Shop"
+    quantity : {type: Number},
+    amount : {type: Number},
+    status: {
+        type: String,
+        default: ["Cancelled", "Delivered", "Shipped", "Processing", "Received"],
+
     },
+    address: String, 
+    updated: Date,
     user: {
         type : ObjectId,
         ref : "User"
     },
-    quantity : {type: Number},
-    amount : {type: Number},
-    
-    UserConfirm : {type : Boolean},
-    SellerConfirm: {type: Boolean},
-    address: String
 
 },{
     timestamps: true
 })
 
-module.exports = model("Order", OrderSchema);
+const Order = model("Order", OrderSchema);
+module.exports = {Order, ProductCart};
