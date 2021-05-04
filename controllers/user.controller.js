@@ -67,7 +67,7 @@ const getUsers = (req,res)=>{
 //order using order model
 const userPurchaseList = (req,res)=>{
     Order.find({user: req.profile._id})
-        .populate("User", "_id name")
+        .populate("User", "_id fname")
         .exec((err,order)=>{
             if(err){
                 res.status(400).json({ err : "No order in this account "})
@@ -81,7 +81,7 @@ const pushOrderInPurchaseList = (req,res,next)=>{
     req.body.order.products.forEach(product =>{
         purchases.push({
             _id: product._id,
-            name: product.name,
+            prodname: product.prodname,
             description: product.description,
             category: product.category,
             quantity: product.quantity,

@@ -2,7 +2,7 @@ const { sortBy } = require("lodash");
 const { Order, ProductCart } = require("../models/order")
 const getOrderById = (req, res, next, id) => {
     Order.findById(id)
-        .populate("products.product", "name price")
+        .populate("products.product", "prodname price")
         .exec((err, order) => {
             if (err) {
                 res.status(400).json({
@@ -34,7 +34,7 @@ const getAllOrders = (req, res) => {
     // let limit = req.query.limit ? parseInt(req.query.limit)  : 10
     // let sortBy = req.query.sortBy ? req.query.sortBy : "_id"
     Order.find()
-        .populate("user", "_id name")
+        .populate("user", "_id fname")
         // .limit(limit)
         // .sort([[sortBy, "asc"]])
         .then(data => res.json(data))
