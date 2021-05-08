@@ -1,4 +1,5 @@
 const router = require("express").Router()
+const { check } = require('express-validator');
 
 const {
     getCategoryById,
@@ -18,6 +19,7 @@ router.param("categoryId",getCategoryById);
 
 //a admin can create category
 router.post("/category/create/:userId",
+[check("Name", "Please enter the category name!").not().isEmpty()],
     isSignedIn,
     isAuthenticated,
     isAdmin,

@@ -19,23 +19,23 @@ const productScheme = new mongoose.Schema({
         trim: true
     },
     
-    height: {
-        type: Number,
-        required: true
-    },
-    width: {
-        type: Number,
-        required: true
-    },
-    length: {
-        type: Number,
-        required: true
-    },
+    // height: {
+    //     type: Number,
+    //     required: true
+    // },
+    // width: {
+    //     type: Number,
+    //     required: true
+    // },
+    // length: {
+    //     type: Number,
+    //     required: true
+    // },
     
-    weight: {
-        type: Number,
-        required: true
-    },
+    // weight: {
+    //     type: Number,
+    //     required: true
+    // },
     quantity: {
         type: Number,
         // required: true

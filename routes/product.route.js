@@ -55,7 +55,7 @@ router.delete("/product/:productId/:userId",
 router.get("/product", getProducts);
 
 //listing route
-router.get("/product", getAllProducts);
+router.get("/products", getAllProducts);
 
 //get categories
 router.get("/product/catgories",getAllUniqueCategories)

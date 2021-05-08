@@ -31,8 +31,8 @@ const createProduct = (req, res) => {
     }
     //destructure the fields
     //   const { name, description, price, category, stock } = fields;
-    const { prodname, description, price, height, width, length, weight, quantity, category } = fields;
-    if (!prodname || !description || !price || !height || !width || !length || !weight || !quantity || !category || !quantity) {
+    const { prodname, description, price, quantity, category } = fields;
+    if (!prodname || !description || !price || !quantity || !category ) {
       return res.status(400).json({
         error: "Please include all fields"
       });
@@ -63,7 +63,7 @@ const createProduct = (req, res) => {
     product.save((err, product) => {
       if (err) {
         res.status(400).json({
-          error: "Saving tshirt in DB failed"
+          error: "Saving Item in DB failed"
         });
       }
       res.json(product);
@@ -172,10 +172,16 @@ const getAllProducts = (req,res)=>{
   Product.find()
     .select("-photo")
     .populate("category")
-    .limit(limit)
     .sort([[sortBy, "asc"]])
-    .then(data => res.json(data))
-    .catch(error => res.status(400).json({ message: "cannot retrieve products" }))
+    .limit(limit)
+    .exec((err, products)=>{
+      if(err){
+        return res.status(400).json({
+          error: "No products found!"
+        });
+      }
+      res.json(products)
+    });
 
 }
 

@@ -1,3 +1,4 @@
+const { body, validationResult } = require('express-validator');
 
 const Category = require("../models/category");
 
@@ -17,11 +18,17 @@ const getCategoryById = (req,res,next,id) => {
 
 //create category
 const createCategory = (req,res)=>{
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+        return res.status(422).json({
+            error : errors.array()[0].msg
+        })
+    }
     const category = new Category(req.body)
     category.save((err,category)=>{
         if(err){
             res.status(400).json({
-                err: "Not able to save category in DB"
+                err: "Failed to save Category "
             })
         }
         res.json(category)
@@ -80,10 +87,10 @@ const deleteCategory = (req,res) => {
 // isCategoryExist middleware
 const isCategoryExist = (req,res,next) => {
     const catName = req.body.Name;
-    Category.findOne({Name : catName}).then(category=>{
+    Category.findOne({Name : catName})
+    .then(category=>{
         if(category){
-            res.status(403).json({msg: 'Category already exists'});
-
+            res.status(403).json({error: 'Category already exists'});
         }
         else{
             next()
