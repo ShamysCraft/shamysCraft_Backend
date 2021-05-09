@@ -12,6 +12,7 @@ const userRoutes = require("./routes/user.route")
 const prodRoutes = require("./routes/product.route")
 const categoryRoutes = require("./routes/category.route")
 const orderRoutes = require("./routes/order.route")
+const paymentBRoutes = require("./routes/paymentBRoutes.route")
 //todo: init express app
 const app = express();
 
@@ -38,6 +39,7 @@ app.use('/api', userRoutes);
 app.use('/api', categoryRoutes);
 app.use('/api', prodRoutes)
 app.use('/api', orderRoutes)
+app.use('/api', paymentBRoutes)
 // app.use('/api', prodRoutes);
 
 //todo: spin up server 
