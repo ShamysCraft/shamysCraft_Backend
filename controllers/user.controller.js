@@ -67,7 +67,7 @@ const getUsers = (req,res)=>{
 //order using order model
 const userPurchaseList = (req,res)=>{
     Order.find({user: req.profile._id})
-        .populate("User", "_id fname")
+        .populate("user", "_id fname")
         .exec((err,order)=>{
             if(err){
                 res.status(400).json({ err : "No order in this account "})

@@ -213,8 +213,9 @@ const updateStock = (req,res,next)=>{
         error: "bulk operation failed"
       })
     }
+    next();
 
-  })
+  });
 }
 
 // getProducts - testing purpose
