@@ -8,6 +8,7 @@ const {
     getAllCategory, 
     updateCategory, 
     deleteCategory,
+    getCategoryCount,
     isCategoryExist} = require("../controllers/category.controller")
 
 const {isSignedIn, isAdmin, isAuthenticated } = require("../controllers/auth.controller")
@@ -43,5 +44,8 @@ router.delete(
     isAuthenticated,
     isAdmin,
     deleteCategory)
+
+router.get("/getCategoryCount/:userId",isSignedIn,isAuthenticated,isAdmin,getCategoryCount)
+
 
 module.exports = router;

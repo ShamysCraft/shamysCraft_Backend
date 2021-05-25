@@ -107,6 +107,31 @@ const pushOrderInPurchaseList = (req,res,next)=>{
     
 }
 
+// number of users
+const getUserCount = (req,res) =>{
+    User.countDocuments({} , (err,users)=>{
+        if(err){
+            res.status(400).json(err)
+        }else{
+            res.json(users)
+        }
+    })
+            
+        
+}
+
+// const getUserCount = (req,res,next) =>{
+//     User.count({})
+//         .exec((err, count)=>{
+//             if(err){
+//                 res.status(400).json({err: "ERR @ user count fetch"})
+//             }
+//             else{
+//                 res.send(count)
+//             }
+//         })
+// }
+
 //addAddress
 
 module.exports = {
@@ -117,6 +142,7 @@ module.exports = {
     deleteuser,
     userPurchaseList,
     pushOrderInPurchaseList,
+    getUserCount
 }
 
 
@@ -156,3 +182,6 @@ module.exports = {
     //     res.json(shop);
     // })
     // }
+
+
+

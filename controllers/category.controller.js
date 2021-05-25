@@ -100,6 +100,18 @@ const isCategoryExist = (req,res,next) => {
     
 }
 
+const getCategoryCount = (req,res) =>{
+    Category.countDocuments({} , (err,category)=>{
+        if(err){
+            res.status(400).json(err)
+        }else{
+            res.json(category)
+        }
+    })
+            
+        
+  }
+
 module.exports = {
     getCategoryById,
     createCategory,
@@ -107,5 +119,6 @@ module.exports = {
     getCategory,
     updateCategory,
     deleteCategory,
-    isCategoryExist
+    isCategoryExist,
+    getCategoryCount
 }

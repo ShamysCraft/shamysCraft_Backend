@@ -226,6 +226,18 @@ const getProducts = (req, res) => {
     .catch(error => res.status(400).json({ error: "cannot retrieve products" }))
 }
 
+const getProductCount = (req,res) =>{
+  Product.countDocuments({} , (err,products)=>{
+      if(err){
+          res.status(400).json(err)
+      }else{
+          res.json(products)
+      }
+  })
+          
+      
+}
 
 
-module.exports = { getProductById, createProduct, getProducts, getProduct, deleteProduct ,photo, updateProduct, getAllProducts, getAllUniqueCategories, updateStock }
+
+module.exports = { getProductById, createProduct, getProducts, getProduct, deleteProduct ,photo, updateProduct, getAllProducts, getAllUniqueCategories, updateStock, getProductCount }

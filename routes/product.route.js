@@ -9,6 +9,7 @@ const {
     updateProduct,
     getAllProducts,
     getAllUniqueCategories,
+    getProductCount,
     photo } = require("../controllers/product.controller")
 
 const { isSignedIn, isAuthenticated, isAdmin } = require("../controllers/auth.controller")
@@ -59,5 +60,7 @@ router.get("/products", getAllProducts);
 
 //get categories
 router.get("/product/catgories",getAllUniqueCategories)
+
+router.get("/getProductCount/:userId",isSignedIn,isAuthenticated,isAdmin,getProductCount)
 
 module.exports = router;

@@ -5,7 +5,8 @@ const {
     getUser, 
     getUsers, 
     updateUser, 
-    userPurchaseList
+    userPurchaseList,
+    getUserCount
 } = require("../controllers/user.controller")
 const {isSignedIn, isAuthenticated,isAdmin  } = require("../controllers/auth.controller");
 
@@ -24,6 +25,8 @@ router.put("/user/:userId/update" ,isSignedIn, isAuthenticated,updateUser);
 
 
 router.get("/orders/user/:userId" ,isSignedIn, isAuthenticated, userPurchaseList);
+
+router.get("/getUserCount/:userId",isSignedIn, isAuthenticated,isAdmin,getUserCount);
 
 module.exports = router;  
 

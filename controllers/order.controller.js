@@ -31,12 +31,12 @@ const createOrder = (req, res) => {
 
 // read order
 const getAllOrders = (req, res) => {
-    // let limit = req.query.limit ? parseInt(req.query.limit)  : 10
-    // let sortBy = req.query.sortBy ? req.query.sortBy : "_id"
+    let limit = req.query.limit ? parseInt(req.query.limit)  : 10
+    let sortBy = req.query.sortBy ? req.query.sortBy : "_id"
     Order.find()
         .populate("user", "_id fname")
-        // .limit(limit)
-        // .sort([[sortBy, "asc"]])
+        .limit(limit)
+        .sort([[sortBy, "asc"]])
         .then(data => res.json(data))
         .catch(error => res.status(400).json({ message: "cannot retrieve orders" }))
     
